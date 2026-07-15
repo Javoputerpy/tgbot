@@ -1,5 +1,5 @@
 services:
-  - type: worker
+  - type: web
     name: cefr-register-bot
     runtime: python
     plan: free
@@ -11,3 +11,5 @@ services:
         value: "8884076033:AAETr0Myy44CaxIN8EKqZct9xMbcpTnRhrU"
       - key: ADMIN_ID
         value: "5940981967"
+      - key: WEBHOOK_URL
+        sync: false
