@@ -124,7 +124,7 @@ def main():
     app.add_handler(conv)
 
     port = int(os.getenv("PORT", 10000))
-    webhook_base = os.getenv("WEBHOOK_URL", "")
+    webhook_base = os.getenv("WEBHOOK_URL", "https://tgbot-7rkf.onrender.com")
 
     if webhook_base:
         webhook_url = f"{webhook_base.rstrip('/')}/{TOKEN}"
