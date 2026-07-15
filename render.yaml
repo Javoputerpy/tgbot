@@ -1,0 +1,13 @@
+services:
+  - type: worker
+    name: cefr-register-bot
+    runtime: python
+    plan: free
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    envVars:
+      - key: BOT_TOKEN
+        value: "8884076033:AAETr0Myy44CaxIN8EKqZct9xMbcpTnRhrU"
+      - key: ADMIN_ID
+        value: "5940981967"
